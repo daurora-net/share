@@ -2,7 +2,7 @@
   <div class="container">
     <h1>ホーム</h1>
 
-    <p>{{ this.message }}</p>
+    <p>{{ this.text }}</p>
 
     <p>{{ message }}</p>
     <NuxtLink to="/register">新規登録</NuxtLink>
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       message: 'ログインができておりません',
-      message: '',
+      text: '',
     }
   },
   created() {
@@ -38,7 +38,7 @@ export default {
     axios.get('http://127.0.0.1:8000/test1')
       .then((res) => {
         console.log(res.data)
-        this.message = res.data
+        this.text = res.data
       })
       .catch((error) => {
         console.log(error)
