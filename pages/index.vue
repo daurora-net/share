@@ -1,9 +1,6 @@
 <template>
   <div class="container">
     <h1>ホーム</h1>
-
-    <p>{{ this.text }}</p>
-
     <p>{{ message }}</p>
     <NuxtLink to="/register">新規登録</NuxtLink>
     <br />
@@ -18,9 +15,6 @@ import firebase from '~/plugins/firebase'
 import Header from "@/components/header.vue";
 import axios from 'axios'
 export default {
-  components: {
-    Header,
-  },
   data() {
     return {
       message: 'ログインができておりません',
@@ -34,15 +28,5 @@ export default {
       }
     })
   },
-  mounted() {
-    axios.get('http://127.0.0.1:8000/test1')
-      .then((res) => {
-        console.log(res.data)
-        this.text = res.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
 }
 </script>
