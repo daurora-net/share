@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <h1>ホーム</h1>
+
+    <span>{{ result }}</span>
+
     <p>{{ message }}</p>
     <NuxtLink to="/register">新規登録</NuxtLink>
     <br />
@@ -16,6 +19,7 @@ export default {
   data() {
     return {
       message: 'ログインができておりません',
+      result: ''
     }
   },
   created() {
@@ -25,5 +29,15 @@ export default {
       }
     })
   },
+  mounted() {
+    axios.get('http://127.0.0.1:8000/')
+      .then((response) => {
+        this.result = response.data.result
+      })
+      .catch((error) => {
+        console.log(error)
+        this.result = 'ERROR'
+      })
+  }
 }
 </script>
