@@ -30,7 +30,7 @@ export default {
     })
   },
   mounted() {
-    axios.get('http://127.0.0.1:8000/')
+    axios.get('http://127.0.0.1:8000/test1')
       .then((response) => {
         this.result = response.data.result
       })
