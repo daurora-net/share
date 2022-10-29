@@ -2,7 +2,7 @@
   <div class="container">
     <h1>ホーム</h1>
 
-    <span>{{ result }}</span>
+    <p>{{ this.message }}</p>
 
     <p>{{ message }}</p>
     <NuxtLink to="/register">新規登録</NuxtLink>
@@ -15,11 +15,16 @@
 
 <script>
 import firebase from '~/plugins/firebase'
+import Header from "@/components/header.vue";
+import axios from 'axios'
 export default {
+  components: {
+    Header,
+  },
   data() {
     return {
       message: 'ログインができておりません',
-      result: ''
+      message: '',
     }
   },
   created() {
@@ -31,12 +36,12 @@ export default {
   },
   mounted() {
     axios.get('http://127.0.0.1:8000/test1')
-      .then((response) => {
-        this.result = response.data.result
+      .then((res) => {
+        console.log(res.data)
+        this.message = res.data
       })
       .catch((error) => {
         console.log(error)
-        this.result = 'ERROR'
       })
   }
 }
