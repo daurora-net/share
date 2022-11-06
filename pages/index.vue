@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>ホーム</h1>
+    <h1>home</h1>
     <p>{{ message }}</p>
     <NuxtLink to="/register">新規登録</NuxtLink>
     <br />
