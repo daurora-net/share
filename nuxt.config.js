@@ -24,8 +24,6 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    // Load a Node.js module directly (here it's a Sass file)
-    'bulma',
     // CSS file in the project
     '@/assets/css/style.css',
     // SCSS file in the project
