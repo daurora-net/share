@@ -12,7 +12,7 @@
 
 <script>
 import firebase from '~/plugins/firebase'
-import Header from "@/components/header.vue";
+import Header from "@/components/SideNav.vue";
 import axios from 'axios'
 export default {
   data() {
