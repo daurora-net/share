@@ -26,8 +26,12 @@ export default {
   },
   methods: {
     async getPostData() {
-      const { data } = await this.$axios.get("/v1/post");
-      this.posts = data.posts;
+      try {
+        const { data } = await this.$axios.get("/v1/post");
+        this.posts = data.posts;
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
     },
     fetchData() {
       firebase.auth().onAuthStateChanged((user) => {
