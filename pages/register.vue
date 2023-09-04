@@ -37,7 +37,7 @@ export default {
             id: data.user.uid,
             name: this.name,
           };
-          this.$axios.post("http://127.0.0.1:8000/api/v1/user", sendData);
+          this.$axios.post("/v1/user", sendData);
           this.$router.replace("/login");
         })
         .catch((error) => {

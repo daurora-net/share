@@ -21,15 +21,10 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    { src: '~/assets/css/style.css' },
-  ],
+  css: [{ src: "~/assets/css/style.css" }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '~/plugins/firebase.js',
-    {src: '@/plugins/vee-validate.js'},
-  ],
+  plugins: ["~/plugins/firebase.js", { src: "@/plugins/vee-validate.js" }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -46,7 +41,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: "/",
+    baseURL: "https://daudev.com/share/api",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

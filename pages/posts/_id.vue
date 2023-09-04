@@ -45,9 +45,7 @@ export default {
   },
   methods: {
     async fetchPost() {
-      const { data } = await this.$axios.get(
-        `http://localhost:8000/api/v1/post/${this.$route.params.id}`
-      );
+      const { data } = await this.$axios.get(`/v1/post/${this.$route.params.id}`);
       this.post = data.post;
     },
     fetchData() {
@@ -57,8 +55,7 @@ export default {
       });
     },
     async postComment() {
-      const { data } = await this.$axios.post(
-        "http://localhost:8000/api/v1/comment",
+      const { data } = await this.$axios.post("/v1/comment",
         {
           post_id: this.post.id,
           user_id: this.uid,
@@ -70,8 +67,7 @@ export default {
     },
     async like() {
 
-      const { data } = await this.$axios.post(
-        "http://localhost:8000/api/v1/like",
+      const { data } = await this.$axios.post("/v1/like",
         {
           post_id: this.post.id,
           user_id: this.uid,
@@ -83,9 +79,7 @@ export default {
       const findLike = this.post.likes.find(
         (like) => like.user_id === this.uid
       );
-      await this.$axios.delete(
-        `http://localhost:8000/api/v1/like/${findLike.id}`
-      );
+      await this.$axios.delete(`/v1/like/${findLike.id}`);
 
       const findLikeIdx = this.post.likes.findIndex(
         (like) => like.id === findLike.id
@@ -93,7 +87,7 @@ export default {
       this.post.likes.splice(findLikeIdx, 1);
     },
     async deletePost(event) {
-      await this.$axios.delete(`http://localhost:8000/api/v1/post/${event.id}`);
+      await this.$axios.delete(`/v1/post/${event.id}`);
       this.$router.push("/");
     },
   },
