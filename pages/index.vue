@@ -33,11 +33,26 @@ export default {
         console.error("Error fetching posts:", error);
       }
     },
-    fetchData() {
-      firebase.auth().onAuthStateChanged((user) => {
-        this.uid = user.uid;
-        this.getPostData();
+    async fetchData() {
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+          this.uid = user.uid;
+          await this.saveUserToDatabase(user);
+          await this.getPostData();
+        }
       });
+    },
+    async saveUserToDatabase(user) {
+      const { uid, email, displayName } = user;
+      try {
+        await this.$axios.post('/v1/user', {
+          user_id: uid,
+          email: email,
+          name: displayName || "未設定"
+        });
+      } catch (error) {
+        console.error("Error saving user to database:", error);
+      }
     },
     async like(post) {
       const { data } = await this.$axios.post("/v1/like",

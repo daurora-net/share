@@ -48,11 +48,26 @@ export default {
       const { data } = await this.$axios.get(`/v1/post/${this.$route.params.id}`);
       this.post = data.post;
     },
-    fetchData() {
+    async fetchData() {
       firebase.auth().onAuthStateChanged(async (user) => {
-        this.uid = user.uid;
-        this.fetchPost();
+        if (user) {
+          this.uid = user.uid;
+          await this.saveUserToDatabase(user);
+          await this.fetchPost();
+        }
       });
+    },
+    async saveUserToDatabase(user) {
+      const { uid, email, displayName } = user;
+      try {
+        await this.$axios.post('/v1/user', {
+          user_id: uid,
+          email: email,
+          name: displayName || "未設定"
+        });
+      } catch (error) {
+        console.error("Error saving user to database:", error);
+      }
     },
     async postComment() {
       const { data } = await this.$axios.post("/v1/comment",
