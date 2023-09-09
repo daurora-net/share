@@ -70,16 +70,23 @@ export default {
       }
     },
     async postComment() {
-      const { data } = await this.$axios.post("/v1/comment",
-        {
-          post_id: this.post.id,
-          user_id: this.uid,
-          comment: this.content,
-        }
-      );
-      this.post.comments.push(data.comment);
-      this.content = "";
+      try {
+        const { data } = await this.$axios.post("/v1/comment",
+          {
+            post_id: this.post.id,
+            user_id: this.uid,
+            comment: this.content,
+          }
+        );
+        this.post.comments.push(data.comment);
+        this.content = "";
+        alert("コメントしました");
+      } catch (error) {
+        console.error("Error posting the comment:", error);
+        alert("コメントの投稿に失敗しました。もう一度お試しください。");
+      }
     },
+
     async like() {
 
       const { data } = await this.$axios.post("/v1/like",
