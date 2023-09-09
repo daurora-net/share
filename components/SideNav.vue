@@ -14,9 +14,9 @@
     <div class="share">
       <p>シェア</p>
       <validation-observer ref="obs" v-slot="ObserverProps">
-        <validation-provider v-slot="{ errors }" rules="required|max:120">
+        <validation-provider v-slot="{ errors }" rules="required|max:120" mode="lazy">
           <textarea v-model="content" name="投稿内容"></textarea>
-          <div class="error">{{ errors[0] }}</div>
+          <div class="error" v-if="hasAttemptedSubmission">{{ errors[0] }}</div>
         </validation-provider>
         <button @click="send" :disabled="ObserverProps.invalid || !ObserverProps.validated"
           class="share_button">シェアする</button>

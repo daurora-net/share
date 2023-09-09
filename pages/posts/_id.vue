@@ -21,9 +21,9 @@
           </div>
         </div>
         <validation-observer ref="obs" v-slot="ObserverProps">
-          <validation-provider v-slot="{ errors }" rules="required|max:120">
+          <validation-provider v-slot="{ errors }" rules="required|max:120" mode="lazy">
             <input v-model="content" type="text" name="コメント">
-            <div class="error">{{ errors[0] }}</div>
+            <div class="error" v-if="hasAttemptedSubmission">{{ errors[0] }}</div>
           </validation-provider>
           <button @click="postComment" :disabled="ObserverProps.invalid || !ObserverProps.validated"
             class="share_button">コメント</button>
