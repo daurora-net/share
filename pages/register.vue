@@ -23,10 +23,12 @@ export default {
       name: null,
       email: null,
       password: null,
+      isSubmitting: false,  // ボタンの有効/無効の状態を管理するフラグ
     };
   },
   methods: {
     register() {
+      this.isSubmitting = true;  // ボタンを無効化
       if (!this.name || !this.email || !this.password) {
         alert("ユーザーネームまたはメールアドレスまたはパスワードが入力されていません。");
         return;
@@ -49,6 +51,7 @@ export default {
               console.error("エラーが発生しました:", error);
               alert("ユーザー情報の保存中にエラーが発生しました。再度お試しください。");
             });
+          this.isSubmitting = true;  // ボタンを無効化
         })
         .catch((error) => {
           switch (error.code) {
@@ -65,6 +68,7 @@ export default {
               alert("エラーが起きました。しばらくしてから再度お試しください。");
               break;
           }
+          this.isSubmitting = true;  // ボタンを無効化
         });
     },
   },
