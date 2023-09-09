@@ -70,21 +70,33 @@ export default {
       }
     },
     async postComment() {
-      try {
-        const { data } = await this.$axios.post("/v1/comment",
-          {
+      // Firebaseでユーザの認証状態を確認
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (!user) {
+          alert("認証されていません。再度ログインしてください。");
+          return;
+        }
+
+        try {
+          const { data } = await this.$axios.post("/v1/comment", {
             post_id: this.post.id,
-            user_id: this.uid,
+            user_id: user.uid,
             comment: this.content,
-          }
-        );
-        this.post.comments.push(data.comment);
-        this.content = "";
-        alert("コメントしました");
-      } catch (error) {
-        console.error("Error posting the comment:", error);
-        alert("コメントの投稿に失敗しました。もう一度お試しください。");
-      }
+          });
+
+          // コメントの内容をリセット
+          this.content = "";
+
+          // コメントをVueのデータ構造に追加
+          this.post.comments.push(data.comment);
+
+          // 通知を表示
+          alert("コメントを追加しました");
+        } catch (error) {
+          console.error("コメントの追加中にエラーが発生しました:", error);
+          alert("コメントの追加中にエラーが発生しました。再試行してください。");
+        }
+      });
     },
 
     async like() {
