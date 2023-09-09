@@ -43,6 +43,7 @@ export default {
           const sendData = {
             id: data.user.uid,
             name: this.name,
+            email: this.email,
           };
 
           this.$axios.post("/v1/user", sendData)
