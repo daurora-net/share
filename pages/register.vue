@@ -8,7 +8,7 @@
           <input placeholder="ユーザーネーム" type="text" v-model="name" name="ユーザーネーム" />
           <input placeholder="メールアドレス" type="email" v-model="email" />
           <input placeholder="パスワード" type="password" v-model="password" />
-          <button type="button" @click="register" :disabled="isSubmitting" class="auth_button">新規登録</button>
+          <button type="submit" :disabled="isSubmitting" class="auth_button">新規登録</button>
         </form>
       </div>
     </div>
