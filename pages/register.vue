@@ -29,10 +29,13 @@ export default {
   methods: {
     register() {
       this.isSubmitting = true;  // ボタンを無効化
+
       if (!this.name || !this.email || !this.password) {
         alert("ユーザーネームまたはメールアドレスまたはパスワードが入力されていません。");
+        this.isSubmitting = false;  // ボタンを再有効化
         return;
       }
+
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -41,17 +44,19 @@ export default {
             id: data.user.uid,
             name: this.name,
           };
+
           this.$axios.post("/v1/user", sendData)
             .then(() => {
               setTimeout(() => {
                 this.$router.replace("/login");
               }, 1000);
+              this.isSubmitting = false;  // ボタンを再有効化
             })
             .catch((error) => {
               console.error("エラーが発生しました:", error);
               alert("ユーザー情報の保存中にエラーが発生しました。再度お試しください。");
+              this.isSubmitting = false;  // ボタンを再有効化
             });
-          this.isSubmitting = true;  // ボタンを無効化
         })
         .catch((error) => {
           switch (error.code) {
@@ -68,7 +73,7 @@ export default {
               alert("エラーが起きました。しばらくしてから再度お試しください。");
               break;
           }
-          this.isSubmitting = true;  // ボタンを無効化
+          this.isSubmitting = false;  // ボタンを再有効化
         });
     },
   },
