@@ -4,9 +4,11 @@
     <div class="card">
       <p class="auth-form_ttl">ログイン</p>
       <div class="form">
-        <input placeholder="メールアドレス" type="email" v-model="email" required />
-        <input placeholder="パスワード" type="password" v-model="password" required />
-        <button @click="login" class="auth_button">ログイン</button>
+        <form @submit.prevent="login">
+          <input placeholder="メールアドレス" type="email" v-model="email" required />
+          <input placeholder="パスワード" type="password" v-model="password" required />
+          <button type="button" @click="login" class="auth_button">ログイン</button>
+        </form>
       </div>
     </div>
   </div>

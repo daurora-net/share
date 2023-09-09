@@ -4,10 +4,12 @@
     <div class="card">
       <p class="auth-form_ttl">新規登録</p>
       <div class="form">
-        <input placeholder="ユーザーネーム" type="text" v-model="name" name="ユーザーネーム" />
-        <input placeholder="メールアドレス" type="email" v-model="email" />
-        <input placeholder="パスワード" type="password" v-model="password" />
-        <button @click="register" class="auth_button">新規登録</button>
+        <form @submit.prevent="register">
+          <input placeholder="ユーザーネーム" type="text" v-model="name" name="ユーザーネーム" />
+          <input placeholder="メールアドレス" type="email" v-model="email" />
+          <input placeholder="パスワード" type="password" v-model="password" />
+          <button type="button" @click="register" class="auth_button">新規登録</button>
+        </form>
       </div>
     </div>
   </div>
@@ -37,8 +39,16 @@ export default {
             id: data.user.uid,
             name: this.name,
           };
-          this.$axios.post("/v1/user", sendData);
-          this.$router.replace("/login");
+          this.$axios.post("/v1/user", sendData)
+            .then(() => {
+              setTimeout(() => {
+                this.$router.replace("/login");
+              }, 1000);
+            })
+            .catch((error) => {
+              console.error("エラーが発生しました:", error);
+              alert("ユーザー情報の保存中にエラーが発生しました。再度お試しください。");
+            });
         })
         .catch((error) => {
           switch (error.code) {
