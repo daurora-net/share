@@ -36,6 +36,7 @@ export default {
     async fetchData() {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
+          console.log("User from Firebase:", user);
           this.uid = user.uid;
           await this.saveUserToDatabase(user);
           await this.getPostData();
